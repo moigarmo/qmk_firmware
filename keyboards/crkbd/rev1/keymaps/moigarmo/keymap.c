@@ -46,14 +46,14 @@ enum custom_keycodes {
   CTLOSR
 };
 
-enum {
-    TD_CAPLOCK
+enum td_definitions {
+    LSFT_CAPS
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ;, twice for :
-    [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+-------+------+-------+--------|
     KC_TAB,  KC_A,  KC_S,  KC_D,  KC_F,  KC_G,                   KC_H,  KC_J,  KC_K,  KC_L,  KC_SCLN, KC_QUOT, 
   //|------+------+------+------+------+------|                |------+------+-------+------+-------+--------|
-TD(TD_CAPLOCK), KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                KC_N,  KC_M, KC_COMM,KC_DOT,KC_SLSH, KC_LGUI, 
+TD(LSFT_CAPS), KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                KC_N,  KC_M, KC_COMM,KC_DOT,KC_SLSH, KC_LGUI, 
   //|------+------+------+------+------+------+------|  |------+------+------+-------+------+-------+--------|
                                KC_LCTL, MO(1), KC_SPC,   KC_ENT, MO(2), KC_LALT
                               //`--------------------'  `--------------------'
@@ -75,7 +75,7 @@ TD(TD_CAPLOCK), KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                KC_N,  KC_M, KC
   //|------+------+-------+-------+-------+-------|                |------+------+------+------+------+------|
      KC_TAB, KC_6,  KC_7,   KC_8,   KC_9,   KC_0,                   KC_NO, KC_LEFT,KC_DOWN,KC_RGHT,KC_PGDN,KC_DEL, 
   //|------+------+-------+-------+-------+-------|                |------+------+------+------+------+------|
-TD(TD_CAPLOCK),KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_NO, CTLOSL, KC_NO, CTLOSR, KC_NO, KC_LGUI, 
+TD(LSFT_CAPS),KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_NO, CTLOSL, KC_NO, CTLOSR, KC_NO, KC_LGUI, 
   //|------+------+-------+-------+-------+-------+------|  |------+------+------+------+------+------+------|
                                    KC_LCTL,KC_TRNS,KC_SPC,   KC_ENT, MO(3), KC_LALT
                                   //`--------------------'  `--------------------'
@@ -87,7 +87,7 @@ TD(TD_CAPLOCK),KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_NO, CTLOS
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     KC_TAB, KC_NO, KC_NO, KC_NO, KC_NO, KC_TILD,                KC_MINS,KC_EQL,KC_LBRC,KC_RBRC,KC_BSLS,KC_GRV, 
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-TD(TD_CAPLOCK), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                 KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,KC_LGUI, 
+TD(LSFT_CAPS), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                 KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,KC_LGUI, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                KC_LCTL, MO(3), KC_SPC,   KC_ENT, KC_TRNS, KC_LALT
                               //`--------------------'  `--------------------'
