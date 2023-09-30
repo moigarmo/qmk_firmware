@@ -33,7 +33,8 @@ enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _GAMING
 };
 
 enum custom_keycodes {
@@ -41,6 +42,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  GAMING,
   RGBRST,
   CTLOSL,
   CTLOSR
@@ -65,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+-------+------+-------+--------|
 TD(LSFT_CAPS), KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                KC_N,  KC_M, KC_COMM,KC_DOT,KC_SLSH, KC_LGUI, 
   //|------+------+------+------+------+------+------|  |------+------+------+-------+------+-------+--------|
-                               KC_LCTL, MO(1), KC_SPC,   KC_ENT, MO(2), KC_LALT
+                              KC_LCTL, KC_LALT, KC_SPC,   KC_ENT, MO(1), MO(2)
                               //`--------------------'  `--------------------'
   ),
 
@@ -77,7 +79,7 @@ TD(LSFT_CAPS), KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                KC_N,  KC_M, KC_
   //|------+------+-------+-------+-------+-------|                |------+------+------+------+------+------|
 TD(LSFT_CAPS),KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_NO, CTLOSL, KC_NO, CTLOSR, KC_NO, KC_LGUI, 
   //|------+------+-------+-------+-------+-------+------|  |------+------+------+------+------+------+------|
-                                   KC_LCTL,KC_TRNS,KC_SPC,   KC_ENT, MO(3), KC_LALT
+                                   KC_LCTL,KC_LALT,KC_SPC,   KC_ENT, KC_TRNS, MO(3) 
                                   //`--------------------'  `--------------------'
   ),
 
@@ -87,9 +89,9 @@ TD(LSFT_CAPS),KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_NO, CTLOSL
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     KC_TAB, KC_NO, KC_NO, KC_NO, KC_NO, KC_TILD,                KC_MINS,KC_EQL,KC_LBRC,KC_RBRC,KC_BSLS,KC_GRV, 
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-TD(LSFT_CAPS), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                 KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,KC_LGUI, 
+TD(LSFT_CAPS), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,               KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,KC_LGUI, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                               KC_LCTL, MO(3), KC_SPC,   KC_ENT, KC_TRNS, KC_LALT
+                               KC_LCTL, KC_LALT, KC_SPC,   KC_ENT, MO(3), KC_TRNS
                               //`--------------------'  `--------------------'
   ),
 
@@ -99,11 +101,23 @@ TD(LSFT_CAPS), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                 KC_UNDS,KC_PLU
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO,           KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, 
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NO, KC_NO,           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NO, KC_NO,           TO(0), TO(1), TO(2), TO(3), TO(4), KC_NO, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                               KC_LCTL,KC_TRNS,KC_SPC,  KC_ENT, KC_TRNS, KC_LALT
+                               KC_LCTL,KC_LALT,KC_SPC,  KC_ENT, KC_TRNS, KC_TRNS
                               //`--------------------'  `--------------------'
-  )
+  ),
+
+  [_GAMING] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------.                ,-----------------------------------------.
+    KC_ESC,  KC_1, KC_Q, KC_W,  KC_E,  KC_R,                    KC_T,  KC_Y,  KC_U,  KC_I, KC_O,  KC_P,       
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    KC_TAB,  KC_2, KC_A, KC_S,  KC_D,  KC_F,                    KC_G,  KC_H,  KC_J,  KC_K, KC_L,  KC_7, 
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    KC_LSFT, KC_3, KC_Z, KC_X,  KC_C,  KC_V,                    KC_B,  KC_N,  KC_M,  KC_4, KC_5,  KC_6, 
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                               KC_LCTL, KC_LALT, KC_SPC, KC_ENT, TO(0), KC_LGUI
+                              //`--------------------'  `--------------------'
+  ),
 };
 
 
@@ -295,6 +309,10 @@ void render_layer_state(void) {
         oled_write_P(lower_layer, false);
     } else if(layer_state_is(_RAISE)) {
         oled_write_P(raise_layer, false);
+    } else if(layer_state_is(_GAMING)) {
+        render_space();
+        oled_write_P(PSTR("GAMES"), false);
+        render_space();
     } else {
         oled_write_P(default_layer, false);
     }
@@ -308,6 +326,7 @@ bool oled_task_user(void) {
     render_space();
     render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
     render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
+    
     return false;
 }
 
@@ -339,6 +358,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
+    case GAMING:
+        if (record->event.pressed) {
+          layer_on(_GAMING);
+        } else {
+          layer_off(_GAMING);
+        }
+        return false;        
     case RGBRST:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
