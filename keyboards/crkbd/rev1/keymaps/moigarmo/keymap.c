@@ -138,6 +138,64 @@ void matrix_init_user(void) {
     #endif
 }
 
+// HAS_FLAGS(bits, flags)
+// LED_FLAG_UNDERGLOW
+// rgb_matrix_set_color(index, r, g, b)
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    switch (biton32(layer_state)) {
+    case _RAISE:
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                rgb_matrix_set_color(i, RGB_GREEN);
+            }
+        }   
+        break;
+
+    case _LOWER:
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                rgb_matrix_set_color(i, RGB_BLUE);
+            }
+        }   
+        break;
+
+    case _ADJUST:
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                rgb_matrix_set_color(i, RGB_YELLOW);
+            }
+        }   
+        break;    
+
+    case _GAMING:
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                rgb_matrix_set_color(i, RGB_PURPLE);
+            }
+        }   
+        break;    
+
+    default:
+        if (host_keyboard_led_state().caps_lock) {
+            for (uint8_t i = led_min; i < led_max; i++) {
+                if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                    rgb_matrix_set_color(i, RGB_RED);
+                }
+            }
+        } else {
+            for (uint8_t i = led_min; i < led_max; i++) {
+                if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+                    rgb_matrix_set_color(i, RGB_WHITE);
+                }
+            }            
+        }
+        break;
+    }
+
+    return false;
+}
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
