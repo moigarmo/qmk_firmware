@@ -97,11 +97,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------.                ,-----------------------------------------.
-    QK_BOOT, RGBRST, KC_NO, KC_NO, KC_NO, KC_NO,                 KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, 
+    QK_BOOT, RGBRST, KC_NO, KC_NO, KC_NO, BL_TOGG,              KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, 
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO,           KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, 
+    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, BL_STEP, BL_UP,         KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, 
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NO, KC_NO,           TO(0), TO(1), TO(2), TO(3), TO(4), KC_NO, 
+    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, BL_BRTG, BL_DOWN,       TO(0), TO(1), TO(2), TO(3), TO(4), KC_NO, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                             KC_LALT, KC_TRNS,KC_SPC,   KC_ENT, KC_TRNS, TD(LSFT_CAPS)
                               //`--------------------'  `--------------------'
